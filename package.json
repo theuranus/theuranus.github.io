@@ -2,11 +2,15 @@
   "name": "theuranus.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://theuranus.github.io",
+  "homepage": "https://theuranus.github.io",
   "dependencies": {
+    "@types/md5": "^2.2.0",
+    "@types/styled-components": "^5.1.0",
+    "md5": "^2.2.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-scripts-ts": "3.1.0"
+    "react-scripts-ts": "3.1.0",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -16,7 +20,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
-    "@types/node": "^10.12.24",
+    "@types/node": "^13.13.5",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
     "typescript": "^3.3.3"
