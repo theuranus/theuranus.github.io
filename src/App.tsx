@@ -109,11 +109,13 @@ const App = (props: IAppProps) => {
               if (!el) {
                 return
               }
-              el.select()
+			  el.select()
+			  el.type = 'text'
               el.setSelectionRange(0, 99999)
               document.execCommand("copy")
               setCopyText('Copied!')
               setTimeout(() => {
+				el.type = 'password'
                 setCopyText('Copy it!')
               }, 500)
             }}
