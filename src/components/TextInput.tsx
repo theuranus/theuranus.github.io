@@ -24,20 +24,39 @@ const TextInput = (props: ITextInputProps) => {
         elId,
         onChange, 
         onClick 
-    } = props
+	} = props
+	
+	const [inputType, setInputType] = React.useState(type)
+
+	const toggleInputType = () => {
+		if (inputType === 'password') {
+			setInputType('text')
+		}
+		if (inputType === 'text') {
+			setInputType('password')
+		}
+	}
+
     return <StyledTextInput>
         {
             type !== 'submit' 
                 ? <>
                     <label>{label}</label>
-                    <input 
-                        id={elId || undefined}
-                        type={type}
-                        placeholder={placeholder || ''}
-                        value={value}
-                        onChange={event => onChange && onChange(event.target.value)}
-                        readOnly={readOnly || false}
-                    />
+					<div>
+						<input 
+							id={elId || undefined}
+							type={inputType}
+							placeholder={placeholder || ''}
+							value={value}
+							onChange={event => onChange && onChange(event.target.value)}
+							readOnly={readOnly || false}
+						/>
+						<i className={`far fa-eye${inputType === 'text' ? '-slash' : ''}`}
+							onClick={() => {
+								toggleInputType()
+							}}
+						/>
+					</div>
                 </>
                 : <input
                     type="submit"
@@ -85,4 +104,15 @@ const StyledTextInput = styled.div`
         color: #555;
         font-size: 18px;
     }
+	div {
+		position: relative;
+		> i {
+			color: #03a9f4;
+			position: absolute;
+			transform: translate(-50%,-50%);
+			right: 6px;
+			top: 50%;
+			cursor: pointer;
+		}
+	}
 `

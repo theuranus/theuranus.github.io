@@ -22,10 +22,31 @@ const App = (props: IAppProps) => {
   const [view, setView] = React.useState('fill')
   const [copyText, setCopyText] = React.useState('Copy it!')
 
+  const eventHandler = (event: any) => {
+	// check Enter pressed
+	if (view === 'fill' && event.keyCode === 13) {
+	  doMagicFunction()
+	  setView('result')
+	}
+	// check Esc pressed
+	if (view === 'result' && event.keyCode === 27) {
+	  setView('fill')
+	  setResult('')
+	  setApplication('')
+	  setUsername('')
+	  setSalt('')
+	}
+  }
+
+  React.useEffect(() => {
+	window.addEventListener('keydown', eventHandler)
+	return () => window.removeEventListener('keydown', eventHandler)
+  }, [view, username, application, salt, result])
+
   const doMagicFunction = () => {
     const validUsername = validation(username, 'james.nguyen')
-    const validApplication = validation(application, 'application')
-    const validSalt = validation(salt, 'james.ng')
+	const validApplication = validation(application, 'application')
+	const validSalt = validation(salt, 'james.ng')
     let magicString = magicFunction(`${validUsername}&${validApplication}`, { salt: validSalt, rounds: 10 })
     magicString = magicString.substring(magicString.length-8)
     const specialCharacters = '.!@#$%^&*='
@@ -40,8 +61,9 @@ const App = (props: IAppProps) => {
         view === 'fill' 
         ? <>
           <TextInput
+		  	key={1}
             label="My lord"
-            type="text"
+            type="password"
             value={username}
             onChange={(value: string) => setUsername(value)}
             placeholder="James Nguyen"
@@ -55,7 +77,7 @@ const App = (props: IAppProps) => {
           />
           <TextInput
             label="Salt"
-            type="text"
+            type="password"
             value={salt}
             onChange={(value: string) => setSalt(value)}
             placeholder="s4lty sTr!n9"
@@ -71,8 +93,9 @@ const App = (props: IAppProps) => {
         </>
         : <>
           <TextInput
+		  	key={2}
             label="Booty"
-            type="text"
+            type="password"
             value={result}
             readOnly={true}
             placeholder="Nothing :'(, We lost"
